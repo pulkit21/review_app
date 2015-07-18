@@ -1,0 +1,1 @@
+json.extract! @comment, :id, :site, :rating, :review, :semantics
