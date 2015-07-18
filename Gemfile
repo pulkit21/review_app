@@ -46,3 +46,6 @@ group :development, :test do
   gem 'better_errors'
 end
 
+# redis
+gem 'redis'
+

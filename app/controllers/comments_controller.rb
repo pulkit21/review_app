@@ -11,6 +11,8 @@ class CommentsController < ApplicationController
   def create
     @comment = @merchant.comments.new(comment_params)
     if @comment.save
+      data = {review_text: @comment.review, review_rating: @comment.rating, review_site: @comment.site, review_user: @comment.user_name, tags: @merchant.items.map{|i| i.name}}.to_json
+      $redis.publish("nltk_data", data)
       render :show, format: :json, status: 201
     else
       render json: @comment.errors, status: 422
