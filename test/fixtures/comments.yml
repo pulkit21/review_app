@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  site: MyString
+  rating: 1
+  review: MyString
+  semantics: MyString
+  merchant_id: 
+
+two:
+  site: MyString
+  rating: 1
+  review: MyString
+  semantics: MyString
+  merchant_id: 
