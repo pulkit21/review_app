@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
   #######
 
   def comment_params
-    params.require(:comment).permit(:site, :rating, :review, :semantics)
+    params.require(:comment).permit(:site, :rating, :review, :semantics, :user_name)
   end
 
   def set_comment
