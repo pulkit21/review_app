@@ -10,19 +10,19 @@ class MerchantsController < ApplicationController
   def create
     @merchant = Merchant.new(merchant_params)
     if @merchant.save
-      render json: @merchant, status: 201
+      render :show, format: :json, status: 201
     else
       render json: @merchant.errors, status: 422
     end
   end
 
   def show
-    render json: @merchant, status: 200
+    render :show, format: :json, status: 200
   end
 
   def update
     if @merchant.update(merchant_params)
-      render json: @merchant, status: 200
+      render :show, format: :json, status: 200
     else
       render json: @merchant.errors, status: 422
     end

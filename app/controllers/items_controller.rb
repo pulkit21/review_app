@@ -11,19 +11,19 @@ class ItemsController < ApplicationController
   def create
     @item = @merchant.items.new(item_params)
     if @item.save
-      render json: @item, status: 201
+      render :show, format: :json, status: 201
     else
       render json: @item.errors, status: 422
     end
   end
 
   def show
-    render json: @item, status: 200
+    render :show, format: :json, status: 200
   end
 
   def update
     if @item.update(item_params)
-      render json: @item, status: 200
+      render :show, format: :json, status: 200
     else
       render json: @item.errors, status: 422
     end
@@ -37,6 +37,10 @@ class ItemsController < ApplicationController
   #######
   private
   #######
+
+  def item_params
+    params.require(:item).permit(:name)
+  end
 
   def set_item
     @item = @merchant.items.find(params[:id])
