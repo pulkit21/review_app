@@ -48,4 +48,9 @@ end
 
 # redis
 gem 'redis'
+gem 'rest-client'
 
+# Job
+gem 'delayed_job_active_record'
+gem 'delayed_job'
+gem "daemons"

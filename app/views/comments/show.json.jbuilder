@@ -1,1 +1,1 @@
-json.extract! @comment, :id, :site, :rating, :review, :semantics, :user_name
+json.extract! @comment, :id, :site, :rating, :review, :semantics, :user_name, :negative_analysis, :positive_analysis, :neutral_analysis, :analysis_label

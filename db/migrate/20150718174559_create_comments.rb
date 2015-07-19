@@ -3,7 +3,7 @@ class CreateComments < ActiveRecord::Migration
     create_table :comments do |t|
       t.string :site
       t.integer :rating
-      t.string :review
+      t.text :review
       t.string :semantics
       t.references :merchant, index: true, foreign_key: true
 

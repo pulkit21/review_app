@@ -5,12 +5,16 @@ class CommentsController < ApplicationController
 
   def index
     @comments = @merchant.comments
-    render json: @comments, status: 200
+    @positive_review = ((@merchant.comments.sum(:positive_analysis).to_i / @merchant.comments.count))
+    @negative_review = ((@merchant.comments.sum(:negative_analysis).to_i / @merchant.comments.count))
+    @neutral_review = ((@merchant.comments.sum(:neutral_analysis).to_i / @merchant.comments.count))
+    render json: {comments: @comments, avg_positive_analysis: @positive_review, avg_negative_analysis: @negative_review, avg_neutral_analysis: @neutral_review}, status: 200
   end
 
   def create
     @comment = @merchant.comments.new(comment_params)
     if @comment.save
+      @comment.delay.text_processing(params)
       data = {review_text: @comment.review, review_rating: @comment.rating, review_site: @comment.site, review_user: @comment.user_name, tags: @merchant.items.map{|i| i.name}}.to_json
       $redis.publish("nltk_data", data)
       render :show, format: :json, status: 201
