@@ -5,10 +5,14 @@ class CommentsController < ApplicationController
 
   def index
     @comments = @merchant.comments
-    @positive_review = ((@merchant.comments.sum(:positive_analysis).to_i / @merchant.comments.count))
-    @negative_review = ((@merchant.comments.sum(:negative_analysis).to_i / @merchant.comments.count))
-    @neutral_review = ((@merchant.comments.sum(:neutral_analysis).to_i / @merchant.comments.count))
-    render json: {comments: @comments, avg_positive_analysis: @positive_review, avg_negative_analysis: @negative_review, avg_neutral_analysis: @neutral_review}, status: 200
+    if @comments.present?
+      @positive_review = ((@merchant.comments.sum(:positive_analysis).to_i / @merchant.comments.count))
+      @negative_review = ((@merchant.comments.sum(:negative_analysis).to_i / @merchant.comments.count))
+      @neutral_review = ((@merchant.comments.sum(:neutral_analysis).to_i / @merchant.comments.count))
+      render json: {comments: @comments, avg_positive_analysis: @positive_review, avg_negative_analysis: @negative_review, avg_neutral_analysis: @neutral_review}, status: 200
+    else
+      render json: {error: "No reviews"}, status: 422
+    end
   end
 
   def create
