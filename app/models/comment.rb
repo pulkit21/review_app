@@ -1,5 +1,7 @@
 class Comment < ActiveRecord::Base
   belongs_to :merchant
+  has_many :product_rating
+  has_many :items, through: :product_rating
   validates :rating, :review, :site, :user_name, presence: true
 
   def text_processing(params)

@@ -18,7 +18,11 @@ class ItemsController < ApplicationController
   end
 
   def show
-    render :show, format: :json, status: 200
+    render json: @item.as_json.merge(
+      positive_review: (@item.comments.sum(:positive_analysis).to_i / @item.comments.count),
+      negative_review: (@item.comments.sum(:negative_analysis).to_i / @item.comments.count),
+      neutral_review: (@item.comments.sum(:neutral_analysis).to_i / @item.comments.count)
+      )
   end
 
   def update
